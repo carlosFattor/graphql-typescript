@@ -51,8 +51,8 @@ export class User extends Typegoose {
   @Property({ lowercase: true, trim: true, default: '' })
   lastName?: string;
 
-  @Property()
-  confirmed: boolean = false;
+  @Property({ default: false })
+  confirmed: boolean;
 
   @instanceMethod
   comparePassword(candidatePassword: string): Promise<boolean> {

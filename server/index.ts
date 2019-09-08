@@ -9,6 +9,7 @@ import connectRedis from 'connect-redis';
 import { redis } from "../db/redis";
 import cors from 'cors';
 import { LoginResolver } from "./modules/user/login/Login";
+import { ConfirmResolver } from "./modules/user/confirm/ConfirmResolver";
 
 const dataBase = new MongoDB();
 const RedisStore = connectRedis(session);
@@ -35,7 +36,7 @@ const _cors = {
 
 const main = async () => {
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver],
+    resolvers: [RegisterResolver, LoginResolver, ConfirmResolver],
     authChecker: (({ context: { req } }) => {
       return !!req.session.userId
     })
