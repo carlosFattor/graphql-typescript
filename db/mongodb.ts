@@ -1,5 +1,5 @@
-import * as Mongoose from 'mongoose'
-export class DataBase {
+import Mongoose from 'mongoose'
+export class MongoDB {
 	constructor() {
 		process.on('SIGINT', () => {
 			Mongoose.connection.close(() => {
