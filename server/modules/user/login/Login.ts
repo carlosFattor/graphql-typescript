@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { User, UserModel } from "../../../models/User";
 import { CustomContext } from "../../../types/CustomContext";
 
@@ -16,7 +16,6 @@ export class LoginResolver {
     if (!passOk) {
       return null;
     }
-    console.log({ user: user._id });
     ctx.req.session!.userId = user._id;
     return user;
   }
