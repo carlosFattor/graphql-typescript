@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { ObjectId } from "bson";
 import { ObjectType, Field } from "type-graphql/dist/decorators";
 import { ID } from 'type-graphql';
+import { Post } from './Post';
 
 mongoose.set('useCreateIndex', true);
 
@@ -50,6 +51,10 @@ export class User extends Typegoose {
   @Field()
   @Property({ lowercase: true, trim: true, default: '' })
   lastName?: string;
+
+  @Field(() => [Post], { nullable: true })
+  @Property({ required: false })
+  posts?: Post[];
 
   @Property({ default: false })
   confirmed: boolean;

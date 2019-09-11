@@ -11,6 +11,7 @@ import { ListUserResolver } from "./modules/user/list/ListUsersResolver";
 import { LoginResolver } from "./modules/user/login/Login";
 import { ConfirmResolver } from "./modules/user/confirm/ConfirmResolver";
 import { RegisterResolver } from "./modules/user/register/Register";
+import { PostResolver } from "./modules/post/register/PostResolver";
 
 const dataBase = new MongoDB();
 const RedisStore = connectRedis(session);
@@ -37,7 +38,7 @@ const _cors = {
 
 const main = async () => {
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver, ListUserResolver, ConfirmResolver],
+    resolvers: [RegisterResolver, LoginResolver, ListUserResolver, ConfirmResolver, PostResolver],
     authChecker: (({ context: { req } }) => {
       return !!req.session.userId
     })
