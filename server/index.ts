@@ -1,15 +1,16 @@
-import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
+import connectRedis from 'connect-redis';
+import cors from 'cors';
 import Express from "express";
+import session from 'express-session';
+import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { MongoDB } from "../db/mongodb";
-import { RegisterResolver } from "./modules/user/register/Register";
-import session from 'express-session'
-import connectRedis from 'connect-redis';
 import { redis } from "../db/redis";
-import cors from 'cors';
+import { ListUserResolver } from "./modules/user/list/ListUsersResolver";
 import { LoginResolver } from "./modules/user/login/Login";
 import { ConfirmResolver } from "./modules/user/confirm/ConfirmResolver";
+import { RegisterResolver } from "./modules/user/register/Register";
 
 const dataBase = new MongoDB();
 const RedisStore = connectRedis(session);
@@ -36,7 +37,7 @@ const _cors = {
 
 const main = async () => {
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver, ConfirmResolver],
+    resolvers: [RegisterResolver, LoginResolver, ListUserResolver, ConfirmResolver],
     authChecker: (({ context: { req } }) => {
       return !!req.session.userId
     })

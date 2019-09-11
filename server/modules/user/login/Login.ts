@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { User, UserModel } from "../../../models/User";
 import { CustomContext } from "../../../types/CustomContext";
 
