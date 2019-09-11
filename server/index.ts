@@ -12,6 +12,7 @@ import { LoginResolver } from "./modules/user/login/Login";
 import { ConfirmResolver } from "./modules/user/confirm/ConfirmResolver";
 import { RegisterResolver } from "./modules/user/register/Register";
 import { PostResolver } from "./modules/post/register/PostResolver";
+import helmet from 'helmet';
 
 const dataBase = new MongoDB();
 const RedisStore = connectRedis(session);
@@ -51,6 +52,7 @@ const main = async () => {
 
   const app = Express();
 
+  app.use(helmet);
   app.use(cors(_cors));
   app.use(_session);
   apolloServer.applyMiddleware({ app });
