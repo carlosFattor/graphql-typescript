@@ -3,16 +3,17 @@ import connectRedis from 'connect-redis';
 import cors from 'cors';
 import Express from "express";
 import session from 'express-session';
+import helmet from 'helmet';
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { MongoDB } from "../db/mongodb";
 import { redis } from "../db/redis";
+import ObterCarrinhoResolver from "./modules/carrinho/obter/ObterCarrinhoResolver";
+import { PostResolver } from "./modules/post/register/PostResolver";
+import { ConfirmResolver } from "./modules/user/confirm/ConfirmResolver";
 import { ListUserResolver } from "./modules/user/list/ListUsersResolver";
 import { LoginResolver } from "./modules/user/login/Login";
-import { ConfirmResolver } from "./modules/user/confirm/ConfirmResolver";
 import { RegisterResolver } from "./modules/user/register/Register";
-import { PostResolver } from "./modules/post/register/PostResolver";
-import helmet from 'helmet';
 
 const dataBase = new MongoDB();
 const RedisStore = connectRedis(session);
@@ -39,7 +40,7 @@ const _cors = {
 
 const main = async () => {
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver, ListUserResolver, ConfirmResolver, PostResolver],
+    resolvers: [RegisterResolver, LoginResolver, ListUserResolver, ConfirmResolver, PostResolver, ObterCarrinhoResolver],
     authChecker: (({ context: { req } }) => {
       return !!req.session.userId
     })
@@ -52,7 +53,7 @@ const main = async () => {
 
   const app = Express();
 
-  app.use(helmet);
+  app.use(helmet());
   app.use(cors(_cors));
   app.use(_session);
   apolloServer.applyMiddleware({ app });

@@ -5,12 +5,14 @@
   "main": "index.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn server/index.ts",
+    "build": "tsc -p tsconfig.release.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server-express": "^2.9.3",
+    "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.10.0",
     "connect-redis": "^4.0.2",
@@ -24,12 +26,14 @@
     "mongoose": "^5.6.13",
     "nodemailer": "^6.3.0",
     "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.5.3",
     "ts-node-dev": "^1.0.0-pre.42",
     "type-graphql": "^0.17.5",
     "typegoose": "^5.9.1",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/connect-redis": "0.0.11",
     "@types/cors": "^2.8.6",
@@ -42,6 +46,7 @@
     "@types/mongoose": "^5.5.17",
     "@types/node": "^12.7.4",
     "@types/nodemailer": "^6.2.1",
+    "@types/rx": "^4.1.1",
     "@types/uuid": "^3.4.5",
     "nodemon": "^1.19.2",
     "ts-node": "^8.3.0",
