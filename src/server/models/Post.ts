@@ -1,12 +1,11 @@
-import { Typegoose, prop } from "typegoose";
-import { ObjectType, Field, ID } from "type-graphql";
+import { prop } from "@typegoose/typegoose";
 import { ObjectId } from "bson";
+import { Field, ID, ObjectType } from "type-graphql";
 
 @ObjectType()
-export class Post extends Typegoose {
+export class Post {
 
   constructor(content: string, userId: string) {
-    super();
     this.content = content;
     this.userId = userId;
   }

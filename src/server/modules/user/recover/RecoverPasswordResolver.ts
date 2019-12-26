@@ -8,7 +8,7 @@ export class RecoverPasswordResolver {
 
   @Mutation(() => Boolean || null)
   async recover(@Arg('email') email: string): Promise<Boolean | null> {
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }).exec();
     if (!user) {
       return null;
     }

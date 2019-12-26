@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Arg, Mutation, Resolver } from "type-graphql";
 import { redis } from "../../../../db/redis";
 import { UserModel } from "../../../models/User";
 
@@ -12,7 +12,7 @@ export class ConfirmResolver {
       return false;
     }
 
-    await UserModel.updateOne({ _id: userId }, { confirmed: true });
+    await UserModel.updateOne({ _id: userId }, { confirmed: true }).exec();
     await redis.del(token);
     return true;
   }

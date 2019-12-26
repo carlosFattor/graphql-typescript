@@ -6,7 +6,7 @@ import { CustomContext } from "../../../types/CustomContext";
 export class LoginResolver {
   @Mutation(() => User, { nullable: true })
   async login(@Arg('email') email: string, @Arg('password') password: string, @Ctx() ctx: CustomContext): Promise<User | null> {
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }).exec();
     if (!user) {
       return null;
     }

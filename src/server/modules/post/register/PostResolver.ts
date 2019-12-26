@@ -1,6 +1,6 @@
-import { Resolver, Mutation, Arg } from "type-graphql";
-import { UserModel } from "../../../models/User";
+import { Arg, Mutation, Resolver } from "type-graphql";
 import { Post } from "../../../models/Post";
+import { UserModel } from "../../../models/User";
 
 @Resolver()
 export class PostResolver {

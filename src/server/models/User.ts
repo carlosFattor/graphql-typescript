@@ -1,10 +1,10 @@
-import mongoose from 'mongoose'
-import { prop as Property, Typegoose, instanceMethod, pre } from "typegoose";
+import { getModelForClass, pre, prop as Property } from "@typegoose/typegoose";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { ObjectId } from "bson";
-import { ObjectType, Field } from "type-graphql/dist/decorators";
+import jwt from "jsonwebtoken";
+import mongoose from 'mongoose';
 import { ID } from 'type-graphql';
+import { Field, ObjectType } from "type-graphql/dist/decorators";
 import { Post } from './Post';
 
 mongoose.set('useCreateIndex', true);
@@ -29,16 +29,13 @@ mongoose.set('useCreateIndex', true);
 })
 
 @ObjectType()
-export class User extends Typegoose {
+export class User {
 
   @Field(() => ID)
   readonly _id: ObjectId;
 
   @Field()
-  @Property({
-    unique: true,
-    required: true
-  })
+  @Property({ unique: true, required: true })
   email: string;
 
   @Property({ required: true, trim: true })
@@ -59,12 +56,10 @@ export class User extends Typegoose {
   @Property({ default: false })
   confirmed: boolean;
 
-  @instanceMethod
   comparePassword(candidatePassword: string): Promise<boolean> {
     return bcrypt.compare(candidatePassword, this.password);
   };
 
-  @instanceMethod
   generateJWT(secret: string, expiresIn: number): string {
     return jwt.sign(
       {
@@ -77,6 +72,6 @@ export class User extends Typegoose {
       }
     );
   };
-};
+}
 
-export const UserModel = new User().getModelForClass(User);
+export const UserModel = getModelForClass(User);
